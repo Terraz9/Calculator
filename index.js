@@ -31,6 +31,7 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
         // To make operations from the beginning
         if (firstNumber == 0) {
             firstNumber = event.target.textContent;
+        // Normal Operations (without starting with 0)
         } else {
             firstNumber += event.target.textContent;
 
@@ -65,10 +66,11 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
         operator = "";
     }
     else if(event.target.textContent === "Clear"){
-        display.textContent = firstNumber;
         firstNumber = 0;
         secondNumber = 0;
         operator = "";
+        display.textContent = firstNumber;
+
     }
 
 

@@ -1,4 +1,5 @@
 html {
+    box-sizing: border-box
 }
 body {
     height: 100vh;
@@ -18,20 +19,12 @@ body {
     width: 25rem;
     height: 30rem;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: 2fr repeat(5, 1fr);
     gap: 0.25rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
 
-.display {
-    background-color: grey;
-    display: flex;
-    justify-content: end;
-    grid-column: 1 / -1;
-    font-size: 5.5rem;
-    margin-bottom: 0.3rem;
-}
 
 
 .col {
@@ -58,4 +51,14 @@ body {
 
 .special {
     background-color: lightblue;
+}
+
+.display {
+    background-color: grey;
+    display: flex;
+    justify-content: end;
+    grid-column: 1 / -1;
+    font-size: 5.5rem;
+    margin-bottom: 0.3rem;
+    overflow: hidden;
 }
