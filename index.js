@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll(".col");
-let firstNumber = "";
-let secondNumber = "";
+const display = document.querySelector(".display");
+let firstNumber = 0;
+let secondNumber = 0;
 let operator = "";
 
 
@@ -20,26 +21,56 @@ function operate(firstNum, operatorType, secondNum) {
         default:
             break;
     }
+    console.log(typeof secondNumOperate);
 
 }
 
+// Listener handler for every button
 buttons.forEach(element => element.addEventListener("click", (event) => {
     if (event.target.classList.contains("aNumber") && operator === "") {
-        firstNumber += event.target.textContent;
+        // To make operations from the beginning
+        if (firstNumber == 0) {
+            firstNumber = event.target.textContent;
+        } else {
+            firstNumber += event.target.textContent;
+
+        }
+        display.textContent = firstNumber;
     }
-    else if (event.target.classList.contains("operator") && firstNumber !== "" && secondNumber === "") {
+
+    else if (event.target.classList.contains("operator") && secondNumber === 0) {
         operator = event.target.textContent;
     }
+    // To do multiple operations in sequence without pressing Equals
+    else if (event.target.classList.contains("operator") && secondNumber !== 0) {
+        display.textContent = operate(firstNumber, operator, secondNumber);
+        firstNumber = operate(firstNumber, operator, secondNumber);
+        secondNumber = 0;
+        operator = event.target.textContent;
+    }
+
     else if(event.target.classList.contains("aNumber") && operator !== "") {
+        if (secondNumber == 0) {
+        secondNumber = event.target.textContent;
+    } else {
         secondNumber += event.target.textContent;
     }
-    else if(event.target.textContent === "="){
-        console.log(firstNumber,operator,secondNumber)
-        console.log("result", operate(firstNumber, operator, secondNumber));
+    display.textContent = secondNumber;
+    }
+
+    else if(event.target.textContent === "=" && operator !== ""){
+        display.textContent = operate(firstNumber, operator, secondNumber);
         firstNumber = operate(firstNumber, operator, secondNumber);
-        secondNumber = "";
+        secondNumber = 0;
         operator = "";
     }
+    else if(event.target.textContent === "Clear"){
+        display.textContent = firstNumber;
+        firstNumber = 0;
+        secondNumber = 0;
+        operator = "";
+    }
+
 
 }
 ));
