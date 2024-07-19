@@ -4,7 +4,7 @@ let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
 let maxCharacters = 8
-
+let result
 
 function operate(firstNum, operatorType, secondNum) {
     firstNumOperate = +firstNum;
@@ -29,6 +29,7 @@ function operate(firstNum, operatorType, secondNum) {
 
 // Listener handler for every button
 buttons.forEach(element => element.addEventListener("click", (event) => {
+  
     if (event.target.classList.contains("aNumber") && operator === "") {
         // To make operations from the beginning
         if (firstNumber === 0 || firstNumber === "0") {
@@ -49,8 +50,9 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
     }
     // To do multiple operations in sequence without pressing Equals
     else if (event.target.classList.contains("operator") && secondNumber != 0) {
-        display.textContent = operate(firstNumber, operator, secondNumber).toString().substring(0,maxCharacters);
-        firstNumber = operate(firstNumber, operator, secondNumber).toString().substring(0, maxCharacters);
+        result = operate(firstNumber, operator, secondNumber).toString().substring(0,maxCharacters);
+        display.textContent = result;
+        firstNumber = result;
         secondNumber = 0;
         operator = event.target.textContent;
     }
@@ -68,8 +70,9 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
     }
     // Equals button
     else if(event.target.textContent === "=" && operator !== ""){
-        display.textContent = operate(firstNumber, operator, secondNumber).toString().substring(0, maxCharacters);
-        firstNumber = operate(firstNumber, operator, secondNumber).toString().substring(0, maxCharacters);
+        result = operate(firstNumber, operator, secondNumber).toString().substring(0, maxCharacters);
+        display.textContent = result;
+        firstNumber = result;
         secondNumber = 0;
         operator = "";
     }
@@ -96,7 +99,7 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
 
 
     }
-    
+    // Percentage function to modify the number
     else if(event.target.textContent === "%"){
         if(firstNumber != 0 && secondNumber == 0){
             firstNumber = getPercentage(firstNumber)
@@ -108,10 +111,52 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
         }
     }
 
-
+    else if(event.target.textContent === "+/-"){
+        // changeSign(firstNumber, secondNumber);
+        if(operator === ""){
+            if(Math.sign(+firstNumber) === 1){
+                firstNumber = "-" + firstNumber;
+            }
+            else if (Math.sign(+firstNumber) === -1){
+                firstNumber = firstNumber.replace("-", "");
+            }
+            display.textContent = firstNumber;
+        }
+        else if(operator !== ""){
+            if(Math.sign(+secondNumber) === 1){
+                secondNumber = "-" + secondNumber;
+            }
+            else if (Math.sign(+secondNumber) === -1){
+                secondNumber = secondNumber.replace("-", "");
+            }
+            display.textContent = secondNumber;
+        }
+    }
 
 }
 ));
+
+function changeSign(firstNum, secondNum) {
+    if(operator === ""){
+        if(Math.sign(+firstNum) === 1){
+            firstNum = "-" + firstNum;
+        }
+        else if (Math.sign(+firstNum) === -1){
+            firstNum = firstNum.replace("-", "");
+        }
+        display.textContent = firstNum;
+    }
+    else if(operator !== ""){
+        if(Math.sign(+secondNum) === 1){
+            secondNum = "-" + secondNum;
+        }
+        else if (Math.sign(+secondNum) === -1){
+            secondNum = secondNum.replace("-", "");
+        }
+        display.textContent = secondNum;
+    }
+
+}
 
 function add(a, b) {
     return a + b;
@@ -131,4 +176,5 @@ function divide(a, b) {
 function getPercentage(a) {
     return a / 100;
 }
+
 
