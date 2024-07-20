@@ -112,23 +112,13 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
     }
 
     else if(event.target.textContent === "+/-"){
-        // changeSign(firstNumber, secondNumber);
         if(operator === ""){
-            if(Math.sign(+firstNumber) === 1){
-                firstNumber = "-" + firstNumber;
-            }
-            else if (Math.sign(+firstNumber) === -1){
-                firstNumber = firstNumber.replace("-", "");
-            }
+            firstNumber = changeSign(firstNumber);
             display.textContent = firstNumber;
         }
+        
         else if(operator !== ""){
-            if(Math.sign(+secondNumber) === 1){
-                secondNumber = "-" + secondNumber;
-            }
-            else if (Math.sign(+secondNumber) === -1){
-                secondNumber = secondNumber.replace("-", "");
-            }
+            secondNumber = changeSign(secondNumber);
             display.textContent = secondNumber;
         }
     }
@@ -136,27 +126,14 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
 }
 ));
 
-function changeSign(firstNum, secondNum) {
-    if(operator === ""){
-        if(Math.sign(+firstNum) === 1){
-            firstNum = "-" + firstNum;
+function changeSign(value) {
+        if(Math.sign(+value) === 1){
+            return value = "-" + value;
         }
-        else if (Math.sign(+firstNum) === -1){
-            firstNum = firstNum.replace("-", "");
+        else if (Math.sign(+value) === -1){
+            return value = value.replace("-", "");
         }
-        display.textContent = firstNum;
     }
-    else if(operator !== ""){
-        if(Math.sign(+secondNum) === 1){
-            secondNum = "-" + secondNum;
-        }
-        else if (Math.sign(+secondNum) === -1){
-            secondNum = secondNum.replace("-", "");
-        }
-        display.textContent = secondNum;
-    }
-
-}
 
 function add(a, b) {
     return a + b;
