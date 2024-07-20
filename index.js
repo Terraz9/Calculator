@@ -112,12 +112,12 @@ buttons.forEach(element => element.addEventListener("click", (event) => {
     }
 
     else if(event.target.textContent === "+/-"){
-        if(operator === ""){
+        if(operator === "" && firstNumber != 0){
             firstNumber = changeSign(firstNumber);
             display.textContent = firstNumber;
         }
         
-        else if(operator !== ""){
+        else if(operator !== "" && secondNumber != 0){
             secondNumber = changeSign(secondNumber);
             display.textContent = secondNumber;
         }
